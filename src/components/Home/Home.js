@@ -7,6 +7,12 @@ import universe113 from "./assets/universe-113.jpeg";
 import jason from "./assets/jason.jpeg";
 import goku from "./assets/goku.webp";
 import mojo from "./assets/mojo-jojo.webp";
+import johnny from "./assets/johnny-bravo.jpeg";
+import sheen from "./assets/sheen-estevez.jpeg";
+import ash from "./assets/ash-ketchum.jpeg";
+import arnold from "./assets/arnold.png";
+import bender from "./assets/bender.jpeg";
+import phillip from "./assets/phillip.png";
 
 const Home = () => {
   let curSlide = 1;
@@ -68,9 +74,65 @@ const Home = () => {
         </div>
         <div className="map-container">
           <img src={theLocNar} alt="" className="pic" />
+          <div className="map">
+            <div className="map-info">
+              <h1>The Loc Nar</h1>
+              <p>by Egor Klyuchnyk</p>
+            </div>
+            <div className="character">
+              <img src={johnny} alt="Johnny Bravo" />
+              <div className="character-info">
+                <p>Johnny Bravo</p>
+                <p>Johnny Bravo</p>
+              </div>
+            </div>
+            <div className="character">
+              <img src={ash} alt="Ash Ketchum" className="ash" />
+              <div className="character-info">
+                <p>Ash Ketchum</p>
+                <p>Pokémon</p>
+              </div>
+            </div>
+            <div className="character">
+              <img src={sheen} alt="Sheen Estevez" />
+              <div className="character-info">
+                <p>Sheen Estevez</p>
+                <p>Adventures of Jimmy Neutron</p>
+              </div>
+            </div>
+            <button className="start">Start</button>
+          </div>
         </div>
         <div className="map-container">
           <img src={universe113} alt="" className="pic" />
+          <div className="map">
+            <div className="map-info">
+              <h1>Universe 113</h1>
+              <p>by Egor Klyuchnyk</p>
+            </div>
+            <div className="character">
+              <img src={bender} alt="Bender" />
+              <div className="character-info">
+                <p>Bender</p>
+                <p>Futurama</p>
+              </div>
+            </div>
+            <div className="character">
+              <img src={arnold} alt="Arnold" className="arnold" />
+              <div className="character-info">
+                <p>Arnold</p>
+                <p>Hey Arnold!</p>
+              </div>
+            </div>
+            <div className="character">
+              <img src={phillip} alt="Philip J. Fry" />
+              <div className="character-info">
+                <p>Philip J. Fry</p>
+                <p>Futurama</p>
+              </div>
+            </div>
+            <button className="start">Start</button>
+          </div>
         </div>
         <div className="circle-container">
           <span className="dot" onClick={() => setImage(1)}></span>

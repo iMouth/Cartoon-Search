@@ -75,8 +75,9 @@
   display: flex;
   justify-content: center;
   width: 100px;
-  height: 100px;
+  height: auto;
   border-radius: 3rem;
+  background-color: peru;
 }
 
 .character-info {
@@ -158,8 +159,4 @@
 
 .dot:hover {
   background-color: darkgray;
-}
-
-.goku {
-  background-color: peru;
 }
