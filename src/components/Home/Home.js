@@ -1,22 +1,11 @@
 import React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, Link } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
-import robotCity from "./assets/robot-city.jpeg";
-import theLocNar from "./assets/the-loc-nar.jpeg";
-import universe113 from "./assets/universe-113.jpeg";
-import jason from "./assets/jason.jpeg";
-import goku from "./assets/goku.webp";
-import mojo from "./assets/mojo-jojo.webp";
-import johnny from "./assets/johnny-bravo.jpeg";
-import sheen from "./assets/sheen-estevez.jpeg";
-import ash from "./assets/ash-ketchum.jpeg";
-import arnold from "./assets/arnold.png";
-import bender from "./assets/bender.jpeg";
-import phillip from "./assets/phillip.png";
 
-const Home = () => {
+const Home = ({ mapInfo }) => {
+  let navigate = useNavigate();
   let curSlide = 1;
-
   useEffect(() => {
     setImage(curSlide);
   }, []);
@@ -42,28 +31,28 @@ const Home = () => {
     <div className="Home">
       <div className="home-container">
         <div className="map-container">
-          <img src={robotCity} alt="" className="pic" />
+          <img src={mapInfo["robot-city"].map} alt="" className="pic" />
           <div className="map">
             <div className="map-info">
               <h1>Robot City</h1>
               <p>by Egor Klyuchnyk</p>
             </div>
             <div className="character">
-              <img src={goku} alt="Goku" className="goku" />
+              <img src={mapInfo["robot-city"].characters[0]} alt="Goku" className="goku" />
               <div className="character-info">
                 <p>Goku</p>
                 <p>Dragon Ball Z</p>
               </div>
             </div>
             <div className="character">
-              <img src={mojo} alt="Mojo Jojo" className="mojo" />
+              <img src={mapInfo["robot-city"].characters[1]} alt="Mojo Jojo" className="mojo" />
               <div className="character-info">
                 <p>Mojo Jojo</p>
                 <p>The Powerpuff Girls</p>
               </div>
             </div>
             <div className="character">
-              <img src={jason} alt="Jason Voorhees" />
+              <img src={mapInfo["robot-city"].characters[2]} alt="Jason Voorhees" />
               <div className="character-info">
                 <p>Jason Voorhees</p>
                 <p>Friday The 13th</p>
@@ -73,28 +62,28 @@ const Home = () => {
           </div>
         </div>
         <div className="map-container">
-          <img src={theLocNar} alt="" className="pic" />
+          <img src={mapInfo["the-loc-nar"].map} alt="" className="pic" />
           <div className="map">
             <div className="map-info">
               <h1>The Loc Nar</h1>
               <p>by Egor Klyuchnyk</p>
             </div>
             <div className="character">
-              <img src={johnny} alt="Johnny Bravo" />
+              <img src={mapInfo["the-loc-nar"].characters[0]} alt="Johnny Bravo" />
               <div className="character-info">
                 <p>Johnny Bravo</p>
                 <p>Johnny Bravo</p>
               </div>
             </div>
             <div className="character">
-              <img src={ash} alt="Ash Ketchum" className="ash" />
+              <img src={mapInfo["the-loc-nar"].characters[1]} alt="Ash Ketchum" className="ash" />
               <div className="character-info">
                 <p>Ash Ketchum</p>
                 <p>Pokémon</p>
               </div>
             </div>
             <div className="character">
-              <img src={sheen} alt="Sheen Estevez" />
+              <img src={mapInfo["the-loc-nar"].characters[2]} alt="Sheen Estevez" />
               <div className="character-info">
                 <p>Sheen Estevez</p>
                 <p>Adventures of Jimmy Neutron</p>
@@ -104,34 +93,36 @@ const Home = () => {
           </div>
         </div>
         <div className="map-container">
-          <img src={universe113} alt="" className="pic" />
+          <img src={mapInfo["universe-113"].map} alt="" className="pic" />
           <div className="map">
             <div className="map-info">
               <h1>Universe 113</h1>
               <p>by Egor Klyuchnyk</p>
             </div>
             <div className="character">
-              <img src={bender} alt="Bender" />
+              <img src={mapInfo["universe-113"].characters[0]} alt="Bender" />
               <div className="character-info">
                 <p>Bender</p>
                 <p>Futurama</p>
               </div>
             </div>
             <div className="character">
-              <img src={arnold} alt="Arnold" className="arnold" />
+              <img src={mapInfo["universe-113"].characters[1]} alt="Arnold" className="arnold" />
               <div className="character-info">
                 <p>Arnold</p>
                 <p>Hey Arnold!</p>
               </div>
             </div>
             <div className="character">
-              <img src={phillip} alt="Philip J. Fry" />
+              <img src={mapInfo["universe-113"].characters[2]} alt="Philip J. Fry" />
               <div className="character-info">
                 <p>Philip J. Fry</p>
                 <p>Futurama</p>
               </div>
             </div>
-            <button className="start">Start</button>
+            <button className="start" onClick={() => navigate(`game/universe113`)}>
+              Start
+            </button>
           </div>
         </div>
         <div className="circle-container">
