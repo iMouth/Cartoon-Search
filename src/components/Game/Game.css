@@ -42,3 +42,9 @@
   border-radius: 5rem;
   background-color: peru;
 }
+
+@media screen and (min-width: 950px) {
+  #Game {
+    cursor: url("./assets/custom-cursor.svg") 50 50, auto;
+  }
+}

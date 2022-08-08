@@ -14,15 +14,72 @@ import phillip from "./assets/phillip.png";
 const mapInfo = {
   "universe-113": {
     map: universe113,
-    characters: [bender, arnold, phillip],
+    name: "Universe 113",
+    link: "universe-113",
+    author: "by Egor Klyuchnyk",
+    characters: [
+      {
+        img: bender,
+        name: "Bender",
+        show: "Futurama",
+      },
+      {
+        img: arnold,
+        name: "Arnold",
+        show: "Hey Arnold!",
+      },
+      {
+        img: phillip,
+        name: "Phillip J. Fry",
+        show: "Futurama",
+      },
+    ],
   },
   "the-loc-nar": {
     map: theLocNar,
-    characters: [johnny, ash, sheen],
+    name: "The Loc Nar",
+    link: "the-loc-nar",
+    author: "by Egor Klyuchnyk",
+    characters: [
+      {
+        img: johnny,
+        name: "Johnny Bravo",
+        show: "Johnny Bravo",
+      },
+      {
+        img: ash,
+        name: "Ash Ketchum",
+        show: "Pokémon",
+      },
+      {
+        img: sheen,
+        name: "Sheen Estevez",
+        show: "Adventures of Jimmy Neutron",
+      },
+    ],
   },
   "robot-city": {
     map: robotCity,
-    characters: [goku, mojo, jason],
+    name: "Robot City",
+    link: "robot-city",
+    author: "by Egor Klyuchnyk",
+    characters: [
+      {
+        img: goku,
+        name: "Goku",
+        show: "Dragon Ball Z",
+      },
+      {
+        img: mojo,
+        name: "Mojo Jojo",
+        show: "Powerpuff Girls",
+      },
+      {
+        img: jason,
+        name: "Jason Voorhees",
+        show: "Friday the 13th",
+      },
+    ],
   },
 };
 
