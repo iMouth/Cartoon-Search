@@ -2,3 +2,12 @@ body {
   margin: 0;
   background-color: black;
 }
+
+@font-face {
+  font-family: Nova Mono;
+  src: url("./assets/NovaMono.ttf");
+}
+
+#root {
+  font-family: Nona Mono, monospace;
+}

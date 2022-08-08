@@ -1,6 +1,8 @@
 import React from "react";
 import { useEffect, useState, Link } from "react";
 import { useNavigate } from "react-router-dom";
+import back from "./assets/back.png";
+import next from "./assets/next.png";
 import "./Home.css";
 
 const Home = ({ mapInfo }) => {
@@ -10,17 +12,19 @@ const Home = ({ mapInfo }) => {
     setImage(curSlide);
   }, []);
 
+  function arrowClick(slide) {
+    setImage(slide + curSlide);
+  }
+
   function setImage(slide) {
     let prevSlide = curSlide;
     const pictures = document.getElementsByClassName("map-container");
     const dots = document.getElementsByClassName("dot");
-    if (slide < 1) {
-      curSlide = pictures.length;
-    } else if (slide > pictures.length) {
-      curSlide = 1;
-    } else {
-      curSlide = slide;
-    }
+
+    if (slide < 1) curSlide = pictures.length;
+    else if (slide > pictures.length) curSlide = 1;
+    else curSlide = slide;
+
     dots[prevSlide - 1].style.backgroundColor = "";
     dots[curSlide - 1].style.backgroundColor = "gray";
     pictures[prevSlide - 1].style.display = "none";
@@ -29,6 +33,11 @@ const Home = ({ mapInfo }) => {
 
   return (
     <div className="Home">
+      <div className="move-btn-back" onClick={() => arrowClick(-1)}>
+        <button type="button" className="move move-back">
+          <img src={back} alt="" className="back" />
+        </button>
+      </div>
       <div className="home-container">
         <div className="map-container">
           <img src={mapInfo["robot-city"].map} alt="" className="pic" />
@@ -58,7 +67,9 @@ const Home = ({ mapInfo }) => {
                 <p>Friday The 13th</p>
               </div>
             </div>
-            <button className="start">Start</button>
+            <button className="start" onClick={() => navigate(`game/robot-city`)}>
+              Start
+            </button>
           </div>
         </div>
         <div className="map-container">
@@ -89,7 +100,9 @@ const Home = ({ mapInfo }) => {
                 <p>Adventures of Jimmy Neutron</p>
               </div>
             </div>
-            <button className="start">Start</button>
+            <button className="start" onClick={() => navigate(`game/the-loc-nar`)}>
+              Start
+            </button>
           </div>
         </div>
         <div className="map-container">
@@ -120,7 +133,7 @@ const Home = ({ mapInfo }) => {
                 <p>Futurama</p>
               </div>
             </div>
-            <button className="start" onClick={() => navigate(`game/universe113`)}>
+            <button className="start" onClick={() => navigate(`game/universe-113`)}>
               Start
             </button>
           </div>
@@ -130,6 +143,11 @@ const Home = ({ mapInfo }) => {
           <span className="dot" onClick={() => setImage(2)}></span>
           <span className="dot" onClick={() => setImage(3)}></span>
         </div>
+      </div>
+      <div className="move-btn-next" onClick={() => arrowClick(1)}>
+        <button type="button" className="move move-next">
+          <img src={next} alt="" className="next" />
+        </button>
       </div>
     </div>
   );
