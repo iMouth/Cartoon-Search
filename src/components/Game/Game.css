@@ -23,10 +23,6 @@
   margin: 0;
 }
 
-#Game {
-  margin: 0;
-}
-
 #Game > img {
   width: 100%;
   min-width: 650px;
@@ -39,8 +35,39 @@
 
 .characters > img {
   width: 60px;
-  border-radius: 5rem;
+  height: 60px;
+  border-radius: 1rem;
   background-color: peru;
+}
+
+#picker {
+  display: none;
+  position: absolute;
+}
+
+#picker-circle {
+  display: none;
+  position: absolute;
+  caret-color: transparent;
+  pointer-events: none;
+}
+
+.picker-holder {
+  background-color: rgb(168, 61, 61);
+  outline: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.75rem;
+  border-radius: 2rem;
+}
+
+.picker-holder > img {
+  width: 60px;
+  height: 60px;
+  border-radius: 2rem;
+  background-color: peru;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 950px) {
