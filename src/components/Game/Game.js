@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import circle from "./assets/select.svg";
+import Timer from "./Timer";
 import "./Game.css";
 
 const Game = ({ mapInfo }) => {
   function imgClick(e) {
+    const rect = e.target.getBoundingClientRect();
+    const headerOffset = document.getElementById("Header").scrollHeight;
+    x = e.clientX;
+    y = e.clientY + headerOffset - rect.top;
+
     const ele = document.getElementById("picker");
     ele.style.display = "block";
+
     const newLeft = window.innerWidth - 150 - e.pageX < ele.offsetWidth ? e.pageX - ele.offsetWidth - 50 : e.pageX + 50;
     const newTop = window.innerHeight - e.pageY < ele.offsetHeight ? e.pageY - ele.offsetHeight : e.pageY;
     ele.style.left = newLeft + "px";
@@ -24,6 +31,81 @@ const Game = ({ mapInfo }) => {
     document.getElementById("picker-circle").style.display = "none";
   }
 
+  function checkImage(e) {
+    console.log(e);
+    const image = document.getElementsByClassName(map)[0].getBoundingClientRect();
+    const headerOffset = document.getElementById("Header").scrollHeight;
+    x = ((x * 100) / image.width).toFixed(1);
+    y = (((y - headerOffset) * 100) / image.height).toFixed(1);
+    //TODO: Move loc to firebase
+    const imgX = loc[e.target.alt].x;
+    const imgY = loc[e.target.alt].y;
+    const testX = Math.abs(x - imgX) < 2;
+    const testY = Math.abs(y - imgY) < 2;
+    if (testX && testY) {
+      if (!(e.target in foundChars)) {
+        foundChars.push(e.target);
+        const charImgs = document.querySelectorAll(`img[alt="${e.target.alt}"]`);
+        charImgs.forEach((img) => {
+          img.style.filter = "grayscale(100%)";
+        });
+      }
+      if (foundChars.length === charList.length) win();
+    }
+    closePicker();
+  }
+
+  function win() {
+    const timeTaken = (Date.now() - time) / 1000;
+    setTime(() => 0);
+    setIsGameOver(() => true);
+  }
+
+  const loc = {
+    Bender: {
+      x: 90.9,
+      y: 70.4,
+    },
+    "Phillip J. Fry": {
+      x: 37.0,
+      y: 17.1,
+    },
+    Arnold: {
+      x: 42.7,
+      y: 62.4,
+    },
+    "Johnny Bravo": {
+      x: 44.0,
+      y: 78.8,
+    },
+    "Sheen Estevez": {
+      x: 93.1,
+      y: 78.0,
+    },
+    "Ash Ketchum": {
+      x: 2.7,
+      y: 87.3,
+    },
+    "Mojo Jojo": {
+      x: 23.5,
+      y: 45.4,
+    },
+    "Jason Voorhees": {
+      x: 56.4,
+      y: 34.9,
+    },
+    Goku: {
+      x: 65.4,
+      y: 64.3,
+    },
+  };
+
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [time, setTime] = useState(Date.now());
+
+  // Keeps Track of map click x and y coordinates
+  let x, y;
+
   window.addEventListener("resize", closePicker);
 
   let { map } = useParams();
@@ -32,15 +114,18 @@ const Game = ({ mapInfo }) => {
 
   const chars = mapInfo[map].characters;
   const charList = [];
+  const foundChars = [];
   Object.keys(chars).forEach((char) => {
-    charList.push(<img key={char} src={chars[char].img} alt={chars[char].name} />);
+    charList.push(<img key={char} src={chars[char].img} alt={chars[char].name} onClick={checkImage} />);
   });
 
   return (
     <div id="Game">
       <div id="Header">
         <Link to="/">&#x2190;</Link>
-        <p>00:00:00</p>
+        <p>
+          <Timer isGameOver={isGameOver} />
+        </p>
         <div className="characters">{charList}</div>
       </div>
       <img className={map} src={mapImg} alt="" onClick={(e) => imgClick(e)} />
