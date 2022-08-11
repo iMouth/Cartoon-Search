@@ -43,6 +43,8 @@
 #picker {
   display: none;
   position: absolute;
+  text-align: center;
+  justify-content: center;
 }
 
 #picker-circle {
@@ -68,6 +70,17 @@
   border-radius: 2rem;
   background-color: peru;
   cursor: pointer;
+}
+
+#picked {
+  background-color: red;
+  color: rgb(255, 255, 255);
+  position: fixed;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin: 1rem 0;
 }
 
 @media screen and (min-width: 950px) {

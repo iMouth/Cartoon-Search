@@ -32,7 +32,6 @@ const Game = ({ mapInfo }) => {
   }
 
   function checkImage(e) {
-    console.log(e);
     const image = document.getElementsByClassName(map)[0].getBoundingClientRect();
     const headerOffset = document.getElementById("Header").scrollHeight;
     x = ((x * 100) / image.width).toFixed(1);
@@ -49,9 +48,16 @@ const Game = ({ mapInfo }) => {
         charImgs.forEach((img) => {
           img.style.filter = "grayscale(100%)";
         });
+        setPickedStyle({ bgColor: "green", text: `You Found ${e.target.alt}!` });
       }
       if (foundChars.length === charList.length) win();
+    } else {
+      setPickedStyle({ bgColor: "red", text: `Keep Looking!` });
     }
+    setPicked(() => true);
+    setTimeout(() => {
+      setPicked(() => false);
+    }, 3000);
     closePicker();
   }
 
@@ -102,6 +108,9 @@ const Game = ({ mapInfo }) => {
 
   const [isGameOver, setIsGameOver] = useState(false);
   const [time, setTime] = useState(Date.now());
+  const [picked, setPicked] = useState(false);
+  const [pickedStyle, setPickedStyle] = useState({});
+  const [didWin, setDidWin] = useState(false);
 
   // Keeps Track of map click x and y coordinates
   let x, y;
@@ -128,6 +137,11 @@ const Game = ({ mapInfo }) => {
         </p>
         <div className="characters">{charList}</div>
       </div>
+      {picked ? (
+        <div style={{ backgroundColor: pickedStyle.bgColor }} id="picked">
+          {pickedStyle.text}
+        </div>
+      ) : null}
       <img className={map} src={mapImg} alt="" onClick={(e) => imgClick(e)} />
       <div id="picker">
         <div className="picker-holder">{charList}</div>
