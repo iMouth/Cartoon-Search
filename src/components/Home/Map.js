@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Characters from "./Characters";
 import { useNavigate } from "react-router-dom";
 import "./Map.css";
 
 const Map = ({ map }) => {
   let navigate = useNavigate();
+
   return (
     <div className="Map">
       <img src={map.map} alt="" className="pic" />

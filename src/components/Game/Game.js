@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import circle from "./assets/select.svg";
+import circleBig from "./assets/select.svg";
+import circleSmall from "./assets/select-small.svg";
 import Timer from "./Timer";
 import Win from "./Win";
 import "./Game.css";
@@ -9,13 +10,27 @@ const Game = ({ mapInfo }) => {
   function imgClick(e) {
     const rect = e.target.getBoundingClientRect();
     const headerOffset = document.getElementById("Header").scrollHeight;
-    x = e.clientX;
-    y = e.clientY + headerOffset - rect.top;
+    const x = e.clientX;
+    const y = e.clientY + headerOffset - rect.top;
 
+    let circleRadius = pickerCircle.type === "big" ? 50 : 25;
+
+    setClickCoords({ x: x, y: y });
+    if (window.innerWidth < 1000) {
+      setPickerCircle({ circle: circleSmall, type: "small" });
+      circleRadius = 25;
+    } else {
+      setPickerCircle({ circle: circleBig, type: "big" });
+      circleRadius = 50;
+    }
     const ele = document.getElementById("picker");
     ele.style.display = "block";
 
-    const newLeft = window.innerWidth - 150 - e.pageX < ele.offsetWidth ? e.pageX - ele.offsetWidth - 50 : e.pageX + 50;
+    console.log(circleRadius);
+    const newLeft =
+      window.innerWidth - 150 - e.pageX < ele.offsetWidth
+        ? e.pageX - ele.offsetWidth - circleRadius
+        : e.pageX + circleRadius;
     const newTop = window.innerHeight - e.pageY < ele.offsetHeight ? e.pageY - ele.offsetHeight : e.pageY;
     ele.style.left = newLeft + "px";
     ele.style.top = newTop + "px";
@@ -23,27 +38,34 @@ const Game = ({ mapInfo }) => {
     const circle = document.getElementById("picker-circle");
     circle.style.left = e.pageX + "px";
     circle.style.top = e.pageY + "px";
-    circle.style.transform = "translate(-50px, -50px)";
+    circle.style.transform = `translate(-${circleRadius}px, -${circleRadius}px)`;
     circle.style.display = "block";
   }
 
-  function closePicker() {
-    document.getElementById("picker").style.display = "none";
-    document.getElementById("picker-circle").style.display = "none";
+  function closePicker(e) {
+    const picker = document.getElementById("picker").style.display;
+    if (picker !== "none") {
+      document.getElementById("picker").style.display = "none";
+      document.getElementById("picker-circle").style.display = "none";
+    }
   }
 
   function checkImage(e) {
     const image = document.getElementsByClassName(map)[0].getBoundingClientRect();
     const headerOffset = document.getElementById("Header").scrollHeight;
-    x = ((x * 100) / image.width).toFixed(1);
-    y = (((y - headerOffset) * 100) / image.height).toFixed(1);
+
+    const x = ((clickCoords.x * 100) / image.width).toFixed(1);
+    const y = (((clickCoords.y - headerOffset) * 100) / image.height).toFixed(1);
+    console.log(x);
     //TODO: Move loc to firebase
     const imgX = loc[e.target.alt].x;
     const imgY = loc[e.target.alt].y;
-    const testX = Math.abs(x - imgX) < 2;
-    const testY = Math.abs(y - imgY) < 2;
+    const errorBox = pickerCircle.type === "big" ? 2 : 4;
+    const testX = Math.abs(x - imgX) < errorBox;
+    const testY = Math.abs(y - imgY) < errorBox;
+    console.log(testX, testY, x, y, imgX, imgY);
     if (testX && testY) {
-      if (!(e.target in foundChars)) {
+      if (!foundChars.includes(e.target)) {
         foundChars.push(e.target);
         setFoundChars(() => foundChars);
         const charImgs = document.querySelectorAll(`img[alt="${e.target.alt}"]`);
@@ -127,15 +149,14 @@ const Game = ({ mapInfo }) => {
   const [picked, setPicked] = useState(false);
   const [pickedStyle, setPickedStyle] = useState({});
   const [foundChars, setFoundChars] = useState([]);
-
-  // Keeps Track of map click x and y coordinates
-  let x, y;
-
-  window.addEventListener("resize", closePicker);
+  const [pickerCircle, setPickerCircle] = useState({ circle: circleBig, type: "big" });
+  const [clickCoords, setClickCoords] = useState({});
 
   let { map } = useParams();
   let mapImg = null;
   if (map in mapInfo) mapImg = mapInfo[map].map;
+
+  window.addEventListener("resize", closePicker);
 
   const chars = mapInfo[map].characters;
   const charList = [];
@@ -153,6 +174,7 @@ const Game = ({ mapInfo }) => {
           <Timer isGameOver={isGameOver} />
         </p>
         <div className="characters">{charList}</div>
+        <Link to={"/leaderboard/" + map}>Leaderboard</Link>
       </div>
       {picked ? (
         <div style={{ backgroundColor: pickedStyle.bgColor }} id="picked">
@@ -164,9 +186,9 @@ const Game = ({ mapInfo }) => {
         <div className="picker-holder">{charList}</div>
       </div>
       <div id="picker-circle">
-        <img src={circle} alt="" />
+        <img src={pickerCircle.circle} alt="" />
       </div>
-      {isGameOver ? <Win time={time} reset={resetGame} /> : null}
+      {isGameOver ? <Win time={time} reset={resetGame} map={map} /> : null}
     </div>
   );
 };

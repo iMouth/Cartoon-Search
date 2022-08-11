@@ -7,7 +7,7 @@
 
 .Map > img {
   width: auto;
-  height: 100%;
+  height: auto;
   border-radius: 2rem 0 0 2rem;
 }
 
@@ -61,6 +61,7 @@
   z-index: 1;
   position: relative;
   background-color: rgb(241, 241, 241);
+  margin: 1rem;
 }
 
 .start::after {

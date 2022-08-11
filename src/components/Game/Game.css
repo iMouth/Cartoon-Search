@@ -12,15 +12,26 @@
   outline: 2px solid black;
 }
 
-#Header > a {
+#Header > a:first-child {
   text-decoration: none;
   color: black;
   font-size: 3rem;
 }
 
+#Header > a:last-child {
+  text-decoration: none;
+  color: black;
+  font-size: 2rem;
+}
+
 #Header > p {
   font-size: 2.5rem;
   margin: 0;
+}
+
+#Game {
+  font-family: Nova Mono, monospace;
+  cursor: url("./assets/custom-cursor-small.svg") 25 25, auto;
 }
 
 #Game > img {
@@ -36,7 +47,7 @@
 .characters > img {
   width: 60px;
   height: 60px;
-  border-radius: 1rem;
+  border-radius: 2rem;
   background-color: peru;
 }
 
@@ -83,8 +94,7 @@
   margin: 1rem 0;
 }
 
-
-@media screen and (min-width: 950px) {
+@media screen and (min-width: 1000px) {
   #Game {
     cursor: url("./assets/custom-cursor.svg") 50 50, auto;
   }

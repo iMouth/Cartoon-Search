@@ -1,0 +1,59 @@
+#Leaderboard {
+  background-color: salmon;
+  height: 100vh;
+  font-family: Nova Mono, monospace;
+}
+
+.header-lb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  caret-color: transparent;
+  background-color: rgb(36, 114, 163);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 20px;
+  outline: 2px solid black;
+}
+
+.header-lb > a,
+.header-lb > span {
+  text-decoration: none;
+  color: black;
+  font-size: 3rem;
+}
+
+.header-lb > h1 {
+  margin: 0 auto;
+}
+
+.leaderboard-content {
+  text-align: center;
+  background-color: sandybrown;
+  margin-top: 2rem;
+  border-radius: 2rem;
+  width: 50%;
+  margin: 2rem auto;
+  padding: 2rem;
+  box-shadow: 0 0 8px 2px black;
+}
+
+.leaderboard-header {
+  font-size: 5rem;
+  border-bottom: 2px solid black;
+  padding-bottom: 1rem;
+}
+
+.leaderboard-times {
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: left;
+  font-size: 2.5rem;
+}
+
+.leaderboard-times > div {
+  display: flex;
+  justify-content: space-between;
+}
