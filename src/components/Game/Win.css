@@ -1,0 +1,80 @@
+.win-modal {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: default;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.win-modal-box {
+  background-color: wheat;
+  padding: 2em;
+  border: 5px solid black;
+  width: 30rem;
+  height: fit-content;
+  border-radius: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.win-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.win-content > h1 {
+  margin: 0;
+}
+
+.win-content > p {
+  margin: 0;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.winBtns {
+  display: flex;
+  gap: 2rem;
+}
+
+.win-content > input {
+  background-color: wheat;
+  border: transparent;
+  padding: 0.5rem;
+  text-align: center;
+  border-bottom: 2px solid black;
+  width: 50%;
+  font-size: 1rem;
+}
+
+.win-content > input:focus {
+  outline: none;
+}
+
+.winBtns > button {
+  outline: 2px solid black;
+  background-color: transparent;
+  padding: 0.5rem;
+  border: none;
+  font-size: 1.2rem;
+  border-radius: 1rem;
+}
+
+.winBtns > button:hover {
+  background-color: lightblue;
+}
+
+.winBtns > button:active {
+  background-color: rgb(36, 114, 163);
+  outline: 3px solid black;
+}

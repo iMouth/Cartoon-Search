@@ -83,6 +83,7 @@
   margin: 1rem 0;
 }
 
+
 @media screen and (min-width: 950px) {
   #Game {
     cursor: url("./assets/custom-cursor.svg") 50 50, auto;

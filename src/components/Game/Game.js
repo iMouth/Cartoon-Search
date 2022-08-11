@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import circle from "./assets/select.svg";
 import Timer from "./Timer";
+import Win from "./Win";
 import "./Game.css";
 
 const Game = ({ mapInfo }) => {
@@ -44,27 +45,42 @@ const Game = ({ mapInfo }) => {
     if (testX && testY) {
       if (!(e.target in foundChars)) {
         foundChars.push(e.target);
+        setFoundChars(() => foundChars);
         const charImgs = document.querySelectorAll(`img[alt="${e.target.alt}"]`);
         charImgs.forEach((img) => {
           img.style.filter = "grayscale(100%)";
         });
         setPickedStyle({ bgColor: "green", text: `You Found ${e.target.alt}!` });
+        if (foundChars.length === charList.length) win();
       }
-      if (foundChars.length === charList.length) win();
     } else {
       setPickedStyle({ bgColor: "red", text: `Keep Looking!` });
     }
     setPicked(() => true);
     setTimeout(() => {
       setPicked(() => false);
-    }, 3000);
+    }, 2000);
     closePicker();
   }
 
   function win() {
+    console.log("WON");
     const timeTaken = (Date.now() - time) / 1000;
-    setTime(() => 0);
+    setTime(() => timeTaken);
     setIsGameOver(() => true);
+  }
+
+  function resetGame() {
+    setIsGameOver(() => false);
+    setTime(() => Date.now());
+    setPicked(() => false);
+    setPickedStyle(() => {});
+    setFoundChars(() => []);
+    const charImgs = document.querySelectorAll(`.charIcon`);
+    console.log(charImgs);
+    charImgs.forEach((img) => {
+      img.style.filter = "";
+    });
   }
 
   const loc = {
@@ -110,7 +126,7 @@ const Game = ({ mapInfo }) => {
   const [time, setTime] = useState(Date.now());
   const [picked, setPicked] = useState(false);
   const [pickedStyle, setPickedStyle] = useState({});
-  const [didWin, setDidWin] = useState(false);
+  const [foundChars, setFoundChars] = useState([]);
 
   // Keeps Track of map click x and y coordinates
   let x, y;
@@ -123,9 +139,10 @@ const Game = ({ mapInfo }) => {
 
   const chars = mapInfo[map].characters;
   const charList = [];
-  const foundChars = [];
   Object.keys(chars).forEach((char) => {
-    charList.push(<img key={char} src={chars[char].img} alt={chars[char].name} onClick={checkImage} />);
+    charList.push(
+      <img key={char} className="charIcon" src={chars[char].img} alt={chars[char].name} onClick={checkImage} />
+    );
   });
 
   return (
@@ -149,6 +166,7 @@ const Game = ({ mapInfo }) => {
       <div id="picker-circle">
         <img src={circle} alt="" />
       </div>
+      {isGameOver ? <Win time={time} reset={resetGame} /> : null}
     </div>
   );
 };

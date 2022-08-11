@@ -21,6 +21,7 @@ function Timer({ isGameOver }) {
       }, 1000);
     } else if (isGameOver) {
       clearInterval(interval);
+      setTimer(0);
     }
 
     return () => {
