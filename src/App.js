@@ -12,7 +12,7 @@ const App = ({ db }) => {
       <Routes>
         <Route path="/" element={<Home mapInfo={mapInfo} />} />
         <Route path="/game/:map" element={<Game mapInfo={mapInfo} db={db} />} />
-        <Route path="/leaderboard/:map" element={<Leaderboard mapInfo={mapInfo} />} />
+        <Route path="/leaderboard/:map" element={<Leaderboard mapInfo={mapInfo} db={db} />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

@@ -54,7 +54,6 @@ const Game = ({ mapInfo, db }) => {
     const image = document.getElementsByClassName(map)[0].getBoundingClientRect();
     const headerOffset = document.getElementById("Header").scrollHeight;
 
-    //get map-locations from firebase collection "map-locations" then get docs for map
     const docRef = doc(db, "map-locations", map);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
@@ -87,12 +86,11 @@ const Game = ({ mapInfo, db }) => {
     closePicker();
   }
 
-  function win() {
+  async function win() {
     const timeTaken = (Date.now() - time) / 1000;
     setTime(() => timeTaken);
     setIsGameOver(() => true);
   }
-
   function resetGame() {
     setIsGameOver(() => false);
     setTime(() => Date.now());
@@ -151,7 +149,7 @@ const Game = ({ mapInfo, db }) => {
       <div id="picker-circle">
         <img src={pickerCircle.circle} alt="" />
       </div>
-      {isGameOver ? <Win time={time} reset={resetGame} map={map} /> : null}
+      {isGameOver ? <Win time={time} reset={resetGame} map={map} db={db} /> : null}
     </div>
   );
 };
