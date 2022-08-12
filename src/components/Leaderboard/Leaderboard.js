@@ -31,10 +31,12 @@ const Leaderboard = ({ mapInfo, db }) => {
         <h1>Leaderboard</h1>
         <span style={{ visibility: "hidden" }}>&#x2190;</span>
       </div>
-      <div className="leaderboard-content">
-        <div className="leaderboard-header">{mapAlt}</div>
-        <div className="leaderboard-times">
-          <DataTable data={data} />
+      <div className="content-box">
+        <div className="leaderboard-content">
+          <div className="leaderboard-header">{mapAlt}</div>
+          <div className="leaderboard-times">
+            <DataTable data={data} />
+          </div>
         </div>
       </div>
     </div>
