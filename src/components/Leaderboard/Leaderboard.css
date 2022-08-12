@@ -19,8 +19,7 @@
   outline: 2px solid black;
 }
 
-.header-lb > a,
-.header-lb > span {
+.header-lb > a {
   text-decoration: none;
   color: black;
   font-size: 3rem;

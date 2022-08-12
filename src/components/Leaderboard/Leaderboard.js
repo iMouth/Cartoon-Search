@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import { getDoc, doc } from "firebase/firestore";
+import home from "./assets/home.png";
 import DataTable from "./DataTable";
 import "./Leaderboard.css";
 
@@ -29,7 +30,9 @@ const Leaderboard = ({ mapInfo, db }) => {
       <div className="header-lb">
         <Link to={"/game/" + map}>&#x2190;</Link>
         <h1>Leaderboard</h1>
-        <span style={{ visibility: "hidden" }}>&#x2190;</span>
+        <Link to={"/"}>
+          <img src={home} alt="Home" />
+        </Link>
       </div>
       <div className="content-box">
         <div className="leaderboard-content">
