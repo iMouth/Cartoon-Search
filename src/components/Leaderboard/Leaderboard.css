@@ -1,6 +1,8 @@
 #Leaderboard {
   background-color: salmon;
   font-family: Nova Mono, monospace;
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .header-lb {
@@ -30,6 +32,7 @@
 
 .content-box {
   padding: 4rem 0;
+  height: 100%;
 }
 
 .leaderboard-content {
