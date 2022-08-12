@@ -6,7 +6,7 @@
 }
 
 .Map > img {
-  width: 100%;
+  width: auto;
   height: auto;
   border-radius: 2rem 0 0 2rem;
 }
