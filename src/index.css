@@ -11,7 +11,7 @@ body {
 
 #root {
   font-family: Nona Mono, monospace;
-  height: 100vw;
+  height: 100vh;
 }
 
 @media screen and (max-width: 650px) {
