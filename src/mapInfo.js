@@ -79,16 +79,6 @@ const mapInfo = {
         name: "Jason Voorhees",
         show: "Friday the 13th",
       },
-      {
-        img: jason,
-        name: "Jason Voorhees",
-        show: "Friday the 13th",
-      },
-      {
-        img: jason,
-        name: "Jason Voorhees",
-        show: "Friday the 13th",
-      },
     ],
   },
 };

@@ -1,9 +1,10 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import "./Leaderboard.css";
 
-const Leaderboard = () => {
+const Leaderboard = ({mapInfo}) => {
   let { map } = useParams();
+  if (!mapInfo[map]) { return <Navigate to="/" /> }
   const mapAlt = map.split("-").join(" ").toUpperCase();
   return (
     <div id="Leaderboard">

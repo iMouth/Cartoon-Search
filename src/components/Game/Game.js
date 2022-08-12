@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { getDoc, doc } from "firebase/firestore";
+import { useParams, Link, Navigate } from "react-router-dom";
 import circleBig from "./assets/select.svg";
 import circleSmall from "./assets/select-small.svg";
 import Timer from "./Timer";
 import Win from "./Win";
 import "./Game.css";
 
-const Game = ({ mapInfo }) => {
+const Game = ({ mapInfo, db }) => {
   function imgClick(e) {
     const rect = e.target.getBoundingClientRect();
     const headerOffset = document.getElementById("Header").scrollHeight;
@@ -26,7 +27,6 @@ const Game = ({ mapInfo }) => {
     const ele = document.getElementById("picker");
     ele.style.display = "block";
 
-    console.log(circleRadius);
     const newLeft =
       window.innerWidth - 150 - e.pageX < ele.offsetWidth
         ? e.pageX - ele.offsetWidth - circleRadius
@@ -50,20 +50,22 @@ const Game = ({ mapInfo }) => {
     }
   }
 
-  function checkImage(e) {
+  async function checkImage(e) {
     const image = document.getElementsByClassName(map)[0].getBoundingClientRect();
     const headerOffset = document.getElementById("Header").scrollHeight;
 
+    //get map-locations from firebase collection "map-locations" then get docs for map
+    const docRef = doc(db, "map-locations", map);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
+    const imgX = data[e.target.alt].x;
+    const imgY = data[e.target.alt].y;
     const x = ((clickCoords.x * 100) / image.width).toFixed(1);
     const y = (((clickCoords.y - headerOffset) * 100) / image.height).toFixed(1);
-    console.log(x);
-    //TODO: Move loc to firebase
-    const imgX = loc[e.target.alt].x;
-    const imgY = loc[e.target.alt].y;
     const errorBox = pickerCircle.type === "big" ? 2 : 4;
     const testX = Math.abs(x - imgX) < errorBox;
     const testY = Math.abs(y - imgY) < errorBox;
-    console.log(testX, testY, x, y, imgX, imgY);
+
     if (testX && testY) {
       if (!foundChars.includes(e.target)) {
         foundChars.push(e.target);
@@ -86,7 +88,6 @@ const Game = ({ mapInfo }) => {
   }
 
   function win() {
-    console.log("WON");
     const timeTaken = (Date.now() - time) / 1000;
     setTime(() => timeTaken);
     setIsGameOver(() => true);
@@ -99,50 +100,11 @@ const Game = ({ mapInfo }) => {
     setPickedStyle(() => {});
     setFoundChars(() => []);
     const charImgs = document.querySelectorAll(`.charIcon`);
-    console.log(charImgs);
+
     charImgs.forEach((img) => {
       img.style.filter = "";
     });
   }
-
-  const loc = {
-    Bender: {
-      x: 90.9,
-      y: 70.4,
-    },
-    "Phillip J. Fry": {
-      x: 37.0,
-      y: 17.1,
-    },
-    Arnold: {
-      x: 42.7,
-      y: 62.4,
-    },
-    "Johnny Bravo": {
-      x: 44.0,
-      y: 78.8,
-    },
-    "Sheen Estevez": {
-      x: 93.1,
-      y: 78.0,
-    },
-    "Ash Ketchum": {
-      x: 2.7,
-      y: 87.3,
-    },
-    "Mojo Jojo": {
-      x: 23.5,
-      y: 45.4,
-    },
-    "Jason Voorhees": {
-      x: 56.4,
-      y: 34.9,
-    },
-    Goku: {
-      x: 65.4,
-      y: 64.3,
-    },
-  };
 
   const [isGameOver, setIsGameOver] = useState(false);
   const [time, setTime] = useState(Date.now());
@@ -155,6 +117,7 @@ const Game = ({ mapInfo }) => {
   let { map } = useParams();
   let mapImg = null;
   if (map in mapInfo) mapImg = mapInfo[map].map;
+  else return <Navigate to="/" />;
 
   window.addEventListener("resize", closePicker);
 
