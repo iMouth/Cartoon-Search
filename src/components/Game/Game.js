@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getDoc, doc } from "firebase/firestore";
 import { useParams, Link, Navigate } from "react-router-dom";
 import circleBig from "./assets/select.svg";
@@ -43,8 +43,8 @@ const Game = ({ mapInfo, db }) => {
   }
 
   function closePicker(e) {
-    const picker = document.getElementById("picker").style.display;
-    if (picker !== "none") {
+    const picker = document.getElementById("picker");
+    if (picker && picker.style.display !== "none") {
       document.getElementById("picker").style.display = "none";
       document.getElementById("picker-circle").style.display = "none";
     }
@@ -111,13 +111,17 @@ const Game = ({ mapInfo, db }) => {
   const [foundChars, setFoundChars] = useState([]);
   const [pickerCircle, setPickerCircle] = useState({ circle: circleBig, type: "big" });
   const [clickCoords, setClickCoords] = useState({});
+  useEffect(() => {
+    window.addEventListener("resize", closePicker);
+    return () => {
+      window.removeEventListener("resize", closePicker);
+    };
+  }, []);
 
   let { map } = useParams();
   let mapImg = null;
   if (map in mapInfo) mapImg = mapInfo[map].map;
   else return <Navigate to="/" />;
-
-  window.addEventListener("resize", closePicker);
 
   const chars = mapInfo[map].characters;
   const charList = [];

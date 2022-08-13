@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState, Link } from "react";
+import { useEffect } from "react";
 import back from "./assets/back.png";
 import next from "./assets/next.png";
 import Map from "./Map";

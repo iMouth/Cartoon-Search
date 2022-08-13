@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Characters from "./Characters";
 import { useNavigate } from "react-router-dom";
 import "./Map.css";
