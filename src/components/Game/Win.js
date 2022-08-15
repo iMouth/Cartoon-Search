@@ -36,7 +36,7 @@ const Win = ({ time, reset, map, db }) => {
             type="text"
             autoComplete="off"
             placeholder="Enter Username"
-          ></input>
+           />
           <div className="winBtns">
             <button type="button" onClick={reset}>
               Play Again
