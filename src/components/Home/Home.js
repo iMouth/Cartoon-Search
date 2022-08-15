@@ -34,7 +34,7 @@ const Home = ({ mapInfo }) => {
   const dots = [];
   Object.keys(mapInfo).forEach((map, index) => {
     maps.push(<Map key={index} map={mapInfo[map]} />);
-    dots.push(<span key={index} className="dot" onClick={() => setImage(index)}></span>);
+    dots.push(<span key={index} className="dot" onClick={() => setImage(index+1)}></span>);
   });
 
   return (
