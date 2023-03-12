@@ -17,7 +17,7 @@ const Leaderboard = ({ mapInfo, db }) => {
   const [data, setData] = useState({});
   useEffect(() => {
     sortData();
-  }, []);
+  });
 
   let { map } = useParams();
   if (!mapInfo[map]) {

@@ -8,7 +8,7 @@ import "./Home.css";
 const Home = ({ mapInfo }) => {
   useEffect(() => {
     setImage(curSlide);
-  }, []);
+  });
 
   function arrowClick(slide) {
     setImage(slide + curSlide);
@@ -34,7 +34,7 @@ const Home = ({ mapInfo }) => {
   const dots = [];
   Object.keys(mapInfo).forEach((map, index) => {
     maps.push(<Map key={index} map={mapInfo[map]} />);
-    dots.push(<span key={index} className="dot" onClick={() => setImage(index+1)}></span>);
+    dots.push(<span key={index} className="dot" onClick={() => setImage(index + 1)}></span>);
   });
 
   return (
